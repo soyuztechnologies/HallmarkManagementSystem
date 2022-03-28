@@ -1,0 +1,18 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory",
+    "file": "storage/data.json"
+  },
+  "db_productive": {
+    "name": "db_productive",
+    "connector": "memory",
+    "file": "storage/data_dbprod.json"
+  },
+  "mongoatlas": {
+    "url":"mongodb+srv://anubhav:anubhav@cluster0.gcyil.mongodb.net/HHC?retryWrites=true&w=majority&ssl=true&useUnifiedTopology=true",
+    "database": "HHC",
+    "name": "mongoatlas",
+    "connector": "mongodb"
+  }
+}

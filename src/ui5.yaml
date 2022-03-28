@@ -1,0 +1,23 @@
+specVersion: '2.3'
+metadata:
+  name: src
+type: application
+builder:
+  componentPreload:
+    paths:
+        - "victoria/**/Component.js"
+# framework:
+#   name: SAPUI5
+#   version: "1.86.0"
+#   libraries:
+#     - name: themelib_sap_fiori_3
+#     - name: sap.m
+#     - name: sap.ui.core
+#     - name: sap.ui.layout
+#     - name: sap.ui.commons
+#     - name: sap.ui.table
+#     - name: sap.ui.export
+#     - name: sap.ui.unified
+#     - name: sap.ui.support
+#     - name: sap.viz
+#     - name: sap.ui.testrecorder

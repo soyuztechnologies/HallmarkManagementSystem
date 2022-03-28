@@ -1,0 +1,114 @@
+{
+  "name": "Entry",
+  "plural": "Entrys",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "RefNo": {
+      "type": "string",
+      "required": true
+    },
+    "Date": {
+      "type": "date",
+      "required": true
+    },
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "MobileNo.": {
+      "type": "string",
+      "required": false
+    },
+    "Logo": {
+      "type": "string",
+      "required": false
+    },
+    "DeliveryBy": {
+      "type": "string",
+      "required": false
+    },
+    "Item": {
+      "type": "string",
+      "required": false
+    },
+    "Weight": {
+      "type": "number",
+      "required": false,
+      "default": 0
+    },
+    "N.Wgt": {
+      "type": "string",
+      "required": false
+    },
+    "TotalPcs": {
+      "type": "number",
+      "required": false,
+      "default": 0
+    },
+    "Address": {
+      "type": "string",
+      "required": false
+    },
+    "City": {
+      "type": "string",
+      "required": false
+    },
+    "PinCode": {
+      "type": "string",
+      "required": false
+    },
+    "Email": {
+      "type": "string",
+      "required": false
+    },
+    "ContactPerson": {
+      "type": "string",
+      "required": false
+    },
+    "OMRate": {
+      "type": "number",
+      "required": false
+    },
+    "MarketRate": {
+      "type": "number",
+      "required": false
+    },
+    "Total": {
+      "type": "number",
+      "required": false
+    },
+    "CreatedOn": {
+      "type": "date"
+
+    },
+    "CreatedBy": {
+      "type": "string",
+      "default": "null"
+    },
+    "ChangedOn": {
+      "type": "date"
+    },
+    "ChangedBy": {
+      "type": "string",
+      "default": "null"
+    }
+  },
+  "scope":{
+
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$unauthenticated",
+      "permission": "DENY"
+    }
+  ],
+  "methods": {}
+}
