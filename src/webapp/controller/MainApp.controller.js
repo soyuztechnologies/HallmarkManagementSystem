@@ -50,8 +50,12 @@ sap.ui.define([
 			// this.resourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
 			// this.idleLogout();
 			this.oRouter =  this.getOwnerComponent().getRouter();
-			
+			this.oRouter.getRoute("MainApp").attachPatternMatched(this._matchedHandler, this);
 
+		},
+		_matchedHandler:function(){
+			// debugger;
+			this.getView().getModel("appView").setProperty("/headerVisible",false);
 		},
 		onSubmit: function() {
 			this.Login();
