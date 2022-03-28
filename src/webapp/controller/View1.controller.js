@@ -18,7 +18,12 @@ sap.ui.define([
 			if (sap.ui.Device.system.phone) {
 				this.getOwnerComponent().getModel("local").setProperty("/IsPhone", true);
 			}
+			this.oRouter.getRoute("View1").attachPatternMatched(this._matchedHandler, this);
 			// this.getOwnerComponent().getModel("appView").setProperty("/headerVisible",true);
+		},
+		_matchedHandler:function(oEvent){
+			debugger;
+			this.getView().getModel("appView").setProperty("/headerVisible",true)
 		},
 		onSuggest: function(oEvent){
 			var suggestVal = oEvent.getParameter("suggestValue");

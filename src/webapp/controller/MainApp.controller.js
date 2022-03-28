@@ -89,16 +89,8 @@ sap.ui.define([
 					that.getView().getModel("local").setProperty("/CurrentUser", data.userId);
 					that.getView().getModel().setUseBatch(false);
 					var that2 = that;
-
-					//Check the role and set it after that navigate to App
-					//that.oRouter.navTo("newlead");
-
-					
 					var found = false;
-					var AppUsers = [];
-
-
-					
+					var AppUsers = [];				
 					that.ODataHelper.callOData(that.getOwnerComponent().getModel(),
 							"/AppUsers", "GET", {}, {}, that)
 						.then(function(oData) {
@@ -122,7 +114,6 @@ sap.ui.define([
 						.catch(function(oError) {
 
 						});
-
 				})
 				.fail(function(xhr, status, error) {
 					sap.m.MessageBox.error("Login Failed, Please enter correct credentials");

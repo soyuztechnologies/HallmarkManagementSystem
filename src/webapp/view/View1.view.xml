@@ -29,6 +29,15 @@
 					
 				</f:content>
 			</f:SimpleForm>
+			<List
+			headerText="Entries"
+			footerText="Total : 50"
+			binding="{/Entrys}" >
+			<StandardListItem
+				title="{RefNo}"
+				description="{Name}"
+			/>
+		</List>
 		</content>
 		<footer>
 			<Toolbar></Toolbar>

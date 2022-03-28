@@ -19,7 +19,7 @@
       "type": "string",
       "required": true
     },
-    "MobileNo.": {
+    "MobileNo": {
       "type": "string",
       "required": false
     },
@@ -40,7 +40,7 @@
       "required": false,
       "default": 0
     },
-    "N.Wgt": {
+    "NWgt": {
       "type": "string",
       "required": false
     },

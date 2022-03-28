@@ -48,6 +48,29 @@ app.start = function() {
 			console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
 		}
 
+		app.get('/EntityMax',function(req,res){
+			var oEntry = app.models.Entry;
+			oEntry.find({
+				order: 'RefNo DESC',
+				limit: 1
+			}).then(function(oData){
+				debugger;
+				var oRef=parseInt(oData[0].RefNo)+1;
+				return res.send(oRef.toString());
+			});
+		})
+		// app.post('/CreateEntry',function(req,res){
+		// 	var oEntry = app.models.Entry;
+		// 	oEntry.find({
+		// 		order: 'RefNo DESC',
+		// 		limit: 1
+		// 	}).then(function(oData){
+		// 		debugger;
+		// 		var oRefNo=parseInt(oData[0].RefNo)+1;
+		// 		req.body.RefNo=oRefNo;
+		// 		// return res.send(oData);
+		// 	});
+		// })
 		app.post('/updatePhotoFlag', function(req, res) {
 
 			var customerOrderKey = req.body.id;
