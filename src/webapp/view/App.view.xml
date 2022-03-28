@@ -27,7 +27,7 @@
 					<IconTabFilter text="Demo Apps" />
 				</items>
 			</IconTabHeader> -->
-			<Button text="new entry" type="Transparent" press="onNewEntry">
+			<Button text="New Entry" type="Transparent" press="onNewEntry">
 				<layoutData>
 					<OverflowToolbarLayoutData priority="NeverOverflow" />
 				</layoutData>

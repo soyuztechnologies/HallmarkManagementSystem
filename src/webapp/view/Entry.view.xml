@@ -5,34 +5,54 @@
 		<headerContent>
 		</headerContent>
 		<content>
-			<f:SimpleForm id="SimpleFormDisplay480_12120" layout="ColumnLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true">
+			<f:SimpleForm id="SimpleFormDisplay480_12120"  layout="ColumnLayout" editable="true" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true">
 				<f:content>
 					<!-- <core:Title text="" level="H1" /> -->
-					<Label text="Customer Name" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					
+					<Label text="Refrence No." />
+					<Input id="idRef" value="{local>/newRecords/RefNo}" editable="false" required="true"/>
+					<Label text="Date" />
+					<DatePicker dateValue="{local>/newRecords/Date}" required="true" displayFormat="MM/dd/yyyy"></DatePicker>
+					<Label text="Name" />
+					<Input required="true" value="{local>/newRecords/Name}"/>
+					<Label text="Mobile No." />
+					<Input value="{local>/newRecords/MobileNo}" change="onMobNuChange"/>
+					<Label text="Logo" />
+					<Input value="{local>/newRecords/Logo}"/>
+					<Label text="Deliver BY" />
+					<Input value="{local>/newRecords/DeliveryBy}"/>
+					<Label text="Item" />
+					<Input required="true" value="{local>/newRecords/Item}"/>
+					<Label text="Weight" />
+					<Input required="true" value="{local>/newRecords/Weight}"/>
+					<Label text="Net Weight" />
+					<Input value="{local>/newRecords/NWgt}"/>
+					<Label text="Total Pieces" />
+					<Input required="true" value="{local>/newRecords/TotalPcs}"/>
+					<Label text="Address" />
+					<Input value="{local>/newRecords/Address}"/>
+					<Label text="City" />
+					<Input value="{local>/newRecords/City}"/>
+					<Label text="Pin Code" />
+					<Input value="{local>/newRecords/PinCode}"/>
+					<Label text="Email Address" />
+					<Input value="{local>/newRecords/Email}"/>
+					<Label text="Contact Person" />
+					<Input value="{local>/newRecords/ContactPerson}"/>
+					<Label text="OM Rate" />
+					<Input id="idOmRt" value="{local>/newRecords/OMRate}" change="omRateChange"/>
+					<Label text="Market Rate" />
+					<Input id="idMarkRt" value="{local>/newRecords/MarketRate}" change="mrkRtChange"/>
+					<Label text="Total" />
+					<Input value="{local>/newRecords/Total}"/>
 				</f:content>
 			</f:SimpleForm>
 			
 		</content>
 		<footer>
-			<Toolbar></Toolbar>
+			<OverflowToolbar >
+				<ToolbarSpacer/>
+				<Button type="Accept" text="Save" />
+				</OverflowToolbar>
 		</footer>
 	</Page>
 </mvc:View>

@@ -1,7 +1,8 @@
 sap.ui.define([
 	"victoria/controller/BaseController",
-	"victoria/models/models"
-], function(Controller, Models) {
+	"victoria/models/models",
+	'sap/m/MessageToast'
+], function(Controller, Models , MessageToast) {
 	"use strict";
 
 	return Controller.extend("victoria.controller.View1", {
@@ -19,125 +20,69 @@ sap.ui.define([
 			this.oRouter.getRoute("Entry").attachPatternMatched(this._matchedHandler, this);
 			// this.getOwnerComponent().getModel("appView").setProperty("/headerVisible",true);
 		},
+		
 		_matchedHandler:function(oEvent){
-			debugger;
+			// debugger;
 			this.getView().getModel("appView").setProperty("/headerVisible",true)
 			if(!this.getView().getModel("local").getProperty("/CurrentUser")){
 				window.top.location.href = "/";
 			}
-		},
-		onSuggest: function(oEvent){
-			var suggestVal = oEvent.getParameter("suggestValue");
-			//oEvent.getSource().suggest();
-			// var oFilterName = new sap.ui.model.Filter(
-			// 	"name",
-			// 	sap.ui.model.FilterOperator.Contains,
-			// 	suggestVal);
-			// oEvent.getSource().getBinding("suggestionItems").filter(oFilterName);
-
-		},
-		onDelete: function(oEvent){
-			var oList = oEvent.getSource();
-			var oItemToBeDeleted = oEvent.getParameter("listItem");
-			oList.removeItem(oItemToBeDeleted);
-		},
-		onSelectItem: function(oEvent){
-
-			var oListItem = oEvent.getParameter("listItem");
-			var sPath = oListItem.getBindingContextPath();
-			var viewId = oListItem.getId().split("--")[oListItem.getId().split("--").length - 1];
-			this.oRouter.navTo(viewId);
-			// sap.m.SplitApp.hideMaster();
-			var oList = oEvent.getSource();
-			var oSplitApp = oList.getParent().getParent().getParent().getParent();
-			// var oSplitApp=this.getOwnerComponent()._oSplitApp;
-			// oSplitApp.hideMaster();
-			// oSplitApp.showMaster();
-			if (!sap.ui.Device.phone) {
-			/* on phone there is no master-detail pair,
-			 but a single navContainer => so navigate within this navContainer: */
-			// var masterPage = this.getView().byId('idSplitApp');
-			// oSplitApp.to(masterPage.getId());
-			oSplitApp.hideMaster();
-		} else {
-			oSplitApp.showMaster();
-		}
-			// //Step 1: get the selected item from list and its path of element
-			// //select row of the table
-
-
-			// //Step 2: bind the selected element path with whole of next view
-			// //binding the simple form with element selected using element binding
-			// var oView2 = sap.ui.getCore().byId("idView2");
-			// oView2.bindElement(sPath);
-
-			// //step 3: navigate to next view
-			// this.onNext();
-			// //
-		},
-		onSearch: function(oEvent){
-			//
-			var searchStr = oEvent.getParameter("query");
-			if(!searchStr){
-				searchStr = oEvent.getParameter("newValue");
-			}
-			var oFilterName = new sap.ui.model.Filter(
-				"name",
-				sap.ui.model.FilterOperator.Contains,
-				searchStr);
-			var oFilterTyp = new sap.ui.model.Filter(
-				"nature",
-				sap.ui.model.FilterOperator.Contains,
-				searchStr
-			);
-			var oFilter = new sap.ui.model.Filter({
-				filters: [oFilterTyp, oFilterName],
-				and: false
+			var that = this;
+			$.get('/EntityMax').done(function(data){
+				// debugger;
+				var refNum = data
+				var oSplitData = {
+					"RefNo": refNum ,
+					"Date": new Date(),
+					"Name": "",
+					"MobileNo": "",
+					"Logo": "",
+					"DeliveryBy": "",
+					"Item": "",
+					"Weight": 0,
+					"NWgt": "",
+					"TotalPcs": 0,
+					"Address": "",
+					"City": "",
+					"PinCode": "",
+					"Email": "",
+					"ContactPerson": "",
+					"OMRate": 0,
+					"MarketRate": 0,
+					"Total": 0,
+				};
+				that.getView().getModel('local').setProperty("/newRecords", oSplitData);
 			});
-			//Will this be an AND between these 2 filters or an OR operation?
-			var aFilter = [oFilter];
-			var oList = this.getView().byId("idFruitsList");
-			oList.getBinding("items").filter(aFilter);
-
 		},
-
-		onNext: function(){
-
-			//step 1: Get the object of the app control (parent for both view)
-			var oApp = sap.ui.getCore().byId("idApp");
-			//step 2: call the method .to and pass view id to which we wanna navigate
-			oApp.to("idView2");
-
+		onMobNuChange:function(oEvent){
+			// debugger;
+			var mobilenum = oEvent.getSource().getProperty('value').length;
+			if (mobilenum !== 10){
+				MessageToast.show('Mobile number must have 10 digits')
+			}
 		},
-		onOrange: function(){
-			alert("welcome to orange");
+		omRateChange:function(oEvent){
+			debugger;
+			var marketRate = parseInt(this.getView().byId('idMarkRt').getProperty('value'));
+			if(marketRate !== 0 ){
+				omRate = 0 ;
+			}
+			else{
+				var omRate = oEvent.getSource().getProperty('value');
+			}
+			this.getView().getModel('local').setProperty("/newRecords/OMRate", omRate)
+		},
+		mrkRtChange : function(oEvent){
+			debugger;
+			var omRt = parseInt(this.getView().byId('idOmRt').getProperty('value'));
+			
+			if(omRt == 0){
+				var mrkrate = oEvent.getSource().getProperty('value');
+			}else{
+				var mrkrate = 0;
+			}
+			this.getView().getModel('local').setProperty("/newRecords/MarketRate", mrkrate);
 		}
-		/**
-		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-		 * (NOT before the first rendering! onInit() is used for that one!).
-		 * @memberOf victoria.view.View1
-		 */
-		//	onBeforeRendering: function() {
-		//
-		//	},
-
-		/**
-		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-		 * This hook is the same one that SAPUI5 controls get after being rendered.
-		 * @memberOf victoria.view.View1
-		 */
-		//	onAfterRendering: function() {
-		//
-		//	},
-
-		/**
-		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf victoria.view.View1
-		 */
-		//	onExit: function() {
-		//
-		//	}
-
 	});
 
 });

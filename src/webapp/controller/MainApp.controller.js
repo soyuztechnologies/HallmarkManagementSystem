@@ -84,7 +84,7 @@ sap.ui.define([
 
 			$.post('/api/Users/login', loginPayload)
 				.done(function(data, status) {
-					debugger;
+					// debugger;
 					that.getOwnerComponent().getModel("local").setProperty("/AuthorizationToken", data.id);
 					that.getView().getModel().setHeaders({
 						"Authorization": data.id
@@ -98,7 +98,7 @@ sap.ui.define([
 					that.ODataHelper.callOData(that.getOwnerComponent().getModel(),
 							"/AppUsers", "GET", {}, {}, that)
 						.then(function(oData) {
-							debugger;
+							// debugger;
 							if (oData.results.length != 0) {
 								for (var i = 0; i < oData.results.length; i++) {
 									AppUsers[oData.results[i].TechnicalId] = oData.results[i];
