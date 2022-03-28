@@ -15,10 +15,8 @@ sap.ui.define([
 			//var oModel = Models.createFruitModel();
 			//sap.ui.getCore().setModel(oModel);
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-			if (sap.ui.Device.system.phone) {
-				this.getOwnerComponent().getModel("local").setProperty("/IsPhone", true);
-			}
-			this.oRouter.getRoute("View1").attachPatternMatched(this._matchedHandler, this);
+		
+			this.oRouter.getRoute("Entry").attachPatternMatched(this._matchedHandler, this);
 			// this.getOwnerComponent().getModel("appView").setProperty("/headerVisible",true);
 		},
 		_matchedHandler:function(oEvent){

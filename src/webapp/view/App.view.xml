@@ -6,7 +6,7 @@
 				 mode=PopoverMode
 		</SplitApp> -->
 		<tnt:ToolHeader design="Solid" style="Clear" visible="{appView>/headerVisible}">
-			<Button icon="sap-icon://home" text="Home" type="Transparent" press=".onHomePress">
+			<Button icon="sap-icon://home" text="Home" type="Transparent" press="onHomePress">
 				<layoutData>
 					<OverflowToolbarLayoutData priority="NeverOverflow" />
 				</layoutData>
@@ -27,7 +27,7 @@
 					<IconTabFilter text="Demo Apps" />
 				</items>
 			</IconTabHeader> -->
-			<Button icon="sap-icon://search" type="Transparent">
+			<Button text="new entry" type="Transparent" press="onNewEntry">
 				<layoutData>
 					<OverflowToolbarLayoutData priority="NeverOverflow" />
 				</layoutData>

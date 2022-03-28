@@ -2,7 +2,7 @@
 controllerName="victoria.controller.MainApp"
 	xmlns:html="http://www.w3.org/1999/xhtml" >
 	<App id="idMainApp" class="v-overlay__scrim">
-		<Page title="Victoria Hallmarking Management	" >
+		<Page title="Victoria Hallmarking Management" >
 			<headerContent>
 <Text text="{i18n>Version}" />
 </headerContent>

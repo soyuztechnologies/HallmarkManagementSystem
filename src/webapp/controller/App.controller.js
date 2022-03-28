@@ -26,6 +26,13 @@ sap.ui.define([
 				headerVisible:false
 			});
 			this.setModel(oViewModel, "appView");
+			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+		},
+		onHomePress:function(){
+			this.oRouter.navTo("View1");
+		},
+		onNewEntry:function(){
+			this.oRouter.navTo("Entry");
 		},
 	});
 });

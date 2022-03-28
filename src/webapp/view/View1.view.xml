@@ -5,34 +5,10 @@
 		<headerContent>
 		</headerContent>
 		<content>
-			<f:SimpleForm id="SimpleFormDisplay480_12120" layout="ColumnLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true">
-				<f:content>
-					<!-- <core:Title text="" level="H1" /> -->
-					<Label text="Customer Name" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					<Label text="" />
-					<Input/>
-					
-				</f:content>
-			</f:SimpleForm>
 			<List
 			headerText="Entries"
 			footerText="Total : 50"
-			binding="{/Entrys}" >
+			items="{/Entrys}" >
 			<StandardListItem
 				title="{RefNo}"
 				description="{Name}"

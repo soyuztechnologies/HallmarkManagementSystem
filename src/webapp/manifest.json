@@ -122,6 +122,11 @@
 					"pattern": "main",
 					"name": "View1",
 					"target": "View1"
+				},
+				{
+					"pattern": "Entry",
+					"name": "Entry",
+					"target": "Entry"
 				}
 			],
 			"targets": {
@@ -134,6 +139,11 @@
 					"viewName": "View1",
 					"viewLevel": 1,
 					"viewId": "View1"
+				},
+				"Entry": {
+					"viewName": "Entry",
+					"viewLevel": 1,
+					"viewId": "Entry"
 				}
 			}
 		}
