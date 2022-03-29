@@ -49,6 +49,22 @@ sap.ui.define([
 				}).catch(function (oError) {
 					var oPopover = that.getErrorMessage(oError);
 				});
+				this.ODataHelper.callOData(this.getOwnerComponent().getModel(), "/api/Entrys", "POST", null, oPayload, this)
+				.then(function (oData) {
+					for (var i = 0; i < oData.results.length; i++) {
+						that.allMasterData.users[oData.results[i].TechnicalId] = oData.results[i];
+					}
+				}).catch(function (oError) {
+					var oPopover = that.getErrorMessage(oError);
+				});
+				this.ODataHelper.callOData(this.getOwnerComponent().getModel(), "/api/Entrys", "PATCH", null, oPayload, this)
+				.then(function (oData) {
+					for (var i = 0; i < oData.results.length; i++) {
+						that.allMasterData.users[oData.results[i].TechnicalId] = oData.results[i];
+					}
+				}).catch(function (oError) {
+					var oPopover = that.getErrorMessage(oError);
+				});
 		},
 		// onAfterRendering: function () {
 		// 	$("input[type='Number']").focus(function () {

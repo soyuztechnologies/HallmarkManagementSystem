@@ -150,5 +150,14 @@ sap.ui.define([
 					break;
 			}
 		},
+		onTimeZone: function (d) {
+            ;
+            if (d.getTimezoneOffset() > 0) {
+                d.setMinutes(d.getMinutes() + d.getTimezoneOffset());
+            } else {
+                d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+            }
+            return d;
+        },
 	};
 });

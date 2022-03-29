@@ -1,16 +1,17 @@
 sap.ui.define([
 	"victoria/controller/BaseController",
-	"victoria/models/models"
-], function(Controller, Models) {
+	"victoria/models/models",
+	"sap/ui/model/Filter",
+	'sap/ui/model/FilterOperator',
+	"sap/ui/model/odata/type/DateTimeOffset"
+], function(BaseController,
+	models,
+	Filter,
+	FilterOperator,
+	DateTimeOffset ) {
 	"use strict";
 
-	return Controller.extend("victoria.controller.View1", {
-
-		/**
-		 * Called when a controller is instantiated and its View controls (if available) are already created.
-		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-		 * @memberOf victoria.view.View1
-		 */
+	return BaseController.extend("victoria.controller.View1", {
 		onInit: function() {
 			//var oModel = Models.createFruitModel();
 			//sap.ui.getCore().setModel(oModel);
@@ -19,17 +20,28 @@ sap.ui.define([
 				this.getOwnerComponent().getModel("local").setProperty("/IsPhone", true);
 			}
 			this.oRouter.getRoute("View1").attachPatternMatched(this._matchedHandler, this);
+			
 			// this.getOwnerComponent().getModel("appView").setProperty("/headerVisible",true);
 		},
 		_matchedHandler:function(oEvent){
-			debugger;
-			this.getView().getModel("appView").setProperty("/headerVisible",true)
+			// debugger;
+			this.getView().getModel("appView").setProperty("/NewEntry", true);
+			this.getView().getModel("appView").setProperty("/headerVisible",true);
 			if(!this.getView().getModel("local").getProperty("/CurrentUser")){
 				window.top.location.href = "/";
 			}
+			debugger;
+            var todaysDate1 = new Date()
+			todaysDate1.setHours(0, 0, 0, 0)
+			var todaysDate2 = new Date()
+			todaysDate2.setHours(23, 59, 59, 59)
+			var oFilterTodayDate = new Filter("Date", FilterOperator.BT, todaysDate1 , todaysDate2);
+			var oDeleted = new Filter("Deleted", FilterOperator.EQ, false);
+			var oList = this.getView().byId('idEntryTable');
+            oList.getBinding('items').filter([oFilterTodayDate,oDeleted]);
 		},
 		onEntryUpdate:function(oEvent){
-			debugger;
+			// debugger;
 			var totalCount=oEvent.getParameter("total");
 			var sum=0;
 			var oItems=oEvent.getSource().getItems();
@@ -40,9 +52,86 @@ sap.ui.define([
 			this.getView().getModel("local").setProperty("/TotalRowCount",sum);
 			// [0].getCells()[10].getText()
 		},
+		openFilterPopup : function(){
+			this.getDialog().open();
+		},
+		getDialog: function () {
+            if (!this.oLocDialog) {
+                this.oLocDialog = sap.ui.xmlfragment(this.getView().getId(),"victoria.Fragments.filterpopup" ,this);
+                this.getView().addDependent(this.oLocDialog);
+            }
+            return this.oLocDialog;
+        },
+		onCancel : function () {
+			this.getDialog().close();
+		},
+		onFireGo : function () {
+			// debugger;
+			var oDeleted = new Filter("Deleted", FilterOperator.EQ, false);
+			var aFilter = [];
+			aFilter.push(oDeleted);
+            var sQuery5 = this.getView().byId('datePicker').getFrom();
+            var sQuery6 = this.getView().byId('datePicker').getTo();
+            if (sQuery5 && sQuery6) {
+                var oDate1 = new Date(sQuery5);
+                var oDate2 = new Date(sQuery6);
+                var oFilter5 = new Filter("Date", FilterOperator.BT, oDate1, oDate2);
+                aFilter.push(oFilter5);
+            }
+			var oList = this.getView().byId('idEntryTable');
+            oList.getBinding('items').filter(aFilter);
+			this.getDialog().close();
+		},
+		
 		onPrint:function(oEvent){
-			debugger; 	
-			var oData=oEvent.getSource().getBindingContext().getObject();
+			debugger;
+			var oRowData = oEvent.getSource().getParent().getBindingContext().getObject();
+			this.getView().getModel('local').setProperty('/printData', oRowData);
+			this.getPrintDailog().open();
+		// 	
+		},
+		onRowDelete:function(oEvent){
+			debugger;
+			var oRowData = oEvent.getSource().getParent().getBindingContext().getObject();
+			oRowData.Deleted=true;
+			var that = this;
+			var token = this.getView().getModel("local").getProperty("/AuthorizationToken");
+			$.ajax("/api/Entrys/"+oRowData.id+"?access_token="+token, {
+				type: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json",
+					"Authorization": "Bearer " + token
+				},
+				data: JSON.stringify(oRowData),
+				success: function (data, status, xhr) {
+					debugger;
+				
+						sap.m.MessageToast.show("Deleted Successfully");
+					
+				
+					var oTable = that.getView().byId('idEntryTable').getBinding('items');
+					oTable.refresh();
+				},
+				error: function (jqXhr, textStatus, errorMessage) {
+					debugger;
+				}
+				
+			});
+		// 	
+		},
+		getPrintDailog : function(){
+			if (!this.oPrintDialog) {
+                this.oPrintDialog = sap.ui.xmlfragment(this.getView().getId(),"victoria.Fragments.Printpopup" ,this);
+                this.getView().addDependent(this.oPrintDialog);
+            }
+            return this.oPrintDialog;
+		},
+		onPrintCancel:function(){
+			this.getPrintDailog().close();
+		},
+		onPrintOk : function(){
+			var oData=this.getView().getModel('local').getProperty('/printData');
 			var form=`<!DOCTYPE html>
 			<html lang="en">
 			<head>
@@ -139,28 +228,7 @@ sap.ui.define([
 			</body>
 			</html>
 			`;
-		// 	var form=`<form>
-		// 	<label>Ref No.:</label>
-		// 	<label>${oData.RefNo}</label><br>
-		// 	<label>Date:</label>
-		// 	<label>${oData.Date}</label><br>
-		// 	<label>Name:</label>
-		// 	<label>${oData.Name}</label><br>
-		// 	<label>Mobile:</label>
-		// 	<label>${oData.MobileNo}</label><br>
-		// 	<label>Logo:</label>
-		// 	<label>${oData.Logo}</label><br>
-		// 	<label>Delivery By:</label>
-		// 	<label>${oData.DeliveryBy}</label><br>
-		// 	<label>Item:</label>
-		// 	<label>${oData.RefNo}</label><br>
-		// 	<label>Weight:</label>
-		// 	<label>${oData.Weight}</label><br>
-		// 	<label>N. Wgt:</label>
-		// 	<label>${oData.NWgt}</label><br>
-		// 	<label>Total Pcs:</label>
-		// 	<label>${oData.TotalPcs}</label><br>
-		//   </form>`;
+		
 		  var random = Math.floor(Math.random() * 10000);
 				var myWindow = window.open("", "PrintWindow" + random, "width=288,height=288");
 				myWindow.document.write(form);
@@ -177,125 +245,16 @@ sap.ui.define([
 				}, 1000);
 
 				myWindow.stop();
+			this.getPrintDailog().close();
 		},
 		onItemPress:function(oEvent){
-			debugger;
+			// debugger;
 			var oData=oEvent.getParameter('listItem').getBindingContext().getObject();
 			this.getView().getModel('local').setProperty("/newRecords", oData);
-			debugger;
+			// debugger;
 			this.oRouter.navTo("Entry");
 		},
-		onSuggest: function(oEvent){
-			var suggestVal = oEvent.getParameter("suggestValue");
-			//oEvent.getSource().suggest();
-			// var oFilterName = new sap.ui.model.Filter(
-			// 	"name",
-			// 	sap.ui.model.FilterOperator.Contains,
-			// 	suggestVal);
-			// oEvent.getSource().getBinding("suggestionItems").filter(oFilterName);
-
-		},
-		onDelete: function(oEvent){
-			var oList = oEvent.getSource();
-			var oItemToBeDeleted = oEvent.getParameter("listItem");
-			oList.removeItem(oItemToBeDeleted);
-		},
-		onSelectItem: function(oEvent){
-
-			var oListItem = oEvent.getParameter("listItem");
-			var sPath = oListItem.getBindingContextPath();
-			var viewId = oListItem.getId().split("--")[oListItem.getId().split("--").length - 1];
-			this.oRouter.navTo(viewId);
-			// sap.m.SplitApp.hideMaster();
-			var oList = oEvent.getSource();
-			var oSplitApp = oList.getParent().getParent().getParent().getParent();
-			// var oSplitApp=this.getOwnerComponent()._oSplitApp;
-			// oSplitApp.hideMaster();
-			// oSplitApp.showMaster();
-			if (!sap.ui.Device.phone) {
-			/* on phone there is no master-detail pair,
-			 but a single navContainer => so navigate within this navContainer: */
-			// var masterPage = this.getView().byId('idSplitApp');
-			// oSplitApp.to(masterPage.getId());
-			oSplitApp.hideMaster();
-		} else {
-			oSplitApp.showMaster();
-		}
-			// //Step 1: get the selected item from list and its path of element
-			// //select row of the table
-
-
-			// //Step 2: bind the selected element path with whole of next view
-			// //binding the simple form with element selected using element binding
-			// var oView2 = sap.ui.getCore().byId("idView2");
-			// oView2.bindElement(sPath);
-
-			// //step 3: navigate to next view
-			// this.onNext();
-			// //
-		},
-		onSearch: function(oEvent){
-			//
-			var searchStr = oEvent.getParameter("query");
-			if(!searchStr){
-				searchStr = oEvent.getParameter("newValue");
-			}
-			var oFilterName = new sap.ui.model.Filter(
-				"name",
-				sap.ui.model.FilterOperator.Contains,
-				searchStr);
-			var oFilterTyp = new sap.ui.model.Filter(
-				"nature",
-				sap.ui.model.FilterOperator.Contains,
-				searchStr
-			);
-			var oFilter = new sap.ui.model.Filter({
-				filters: [oFilterTyp, oFilterName],
-				and: false
-			});
-			//Will this be an AND between these 2 filters or an OR operation?
-			var aFilter = [oFilter];
-			var oList = this.getView().byId("idFruitsList");
-			oList.getBinding("items").filter(aFilter);
-
-		},
-
-		onNext: function(){
-
-			//step 1: Get the object of the app control (parent for both view)
-			var oApp = sap.ui.getCore().byId("idApp");
-			//step 2: call the method .to and pass view id to which we wanna navigate
-			oApp.to("idView2");
-
-		},
-		onOrange: function(){
-			alert("welcome to orange");
-		}
-		/**
-		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-		 * (NOT before the first rendering! onInit() is used for that one!).
-		 * @memberOf victoria.view.View1
-		 */
-		//	onBeforeRendering: function() {
-		//
-		//	},
-
-		/**
-		 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-		 * This hook is the same one that SAPUI5 controls get after being rendered.
-		 * @memberOf victoria.view.View1
-		 */
-		//	onAfterRendering: function() {
-		//
-		//	},
-
-		/**
-		 * Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-		 * @memberOf victoria.view.View1
-		 */
-		//	onExit: function() {
-		//
-		//	}
+	
 
 	});
 

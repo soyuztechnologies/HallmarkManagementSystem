@@ -8,7 +8,7 @@
 				</layoutData>
 			</Button>
 		
-			<Button text="New Entry" type="Transparent" press="onNewEntry">
+			<Button text="New Entry" type="Transparent" enabled="{appView>/NewEntry}" press="onNewEntry">
 				<layoutData>
 					<OverflowToolbarLayoutData priority="NeverOverflow" />
 				</layoutData>

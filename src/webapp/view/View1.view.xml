@@ -1,28 +1,23 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form" controllerName="victoria.controller.View1" xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="Entries" showHeader="true">
-		<headerContent></headerContent>
+<mvc:View xmlns:core="sap.ui.core" 
+          xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" 
+		  xmlns:f="sap.ui.layout.form" 
+		  controllerName="victoria.controller.View1"
+		  xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page>
 		<content>
-			<!-- <List
-			headerText="Entries"
-			footerText="Total : 50"
-			items="{/Entrys}" >
-			<StandardListItem
-				title="{RefNo}"
-				description="{Name}"
-			/>
-		</List> -->
-
 			<Table id="idEntryTable" inset="false" items="{
 			path: '/Entrys',
 			sorter: {
 				path: 'Date'
 			}
 		}" footerText="Total : {local>/TotalRowCount}" mode="SingleSelectMaster" updateFinished="onEntryUpdate" selectionChange="onItemPress">
-				<!-- <headerToolbar>
-					<OverflowToolbar>
-						<content></content>
-					</OverflowToolbar>
-				</headerToolbar> -->
+		<headerToolbar>
+			<Toolbar>
+				<Title id="_IDGenTitle1" text="Entries"></Title>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://filter" press="openFilterPopup" ></Button>
+			</Toolbar>
+		</headerToolbar>
 				<columns>
 					<Column>
 						<Text text="Ref No." />
@@ -58,7 +53,7 @@
 						<Text text="Total" />
 					</Column>
 					<Column>
-						<Text text="Print" />
+						<Text text="Tools" />
 					</Column>
 				</columns>
 				<items>
@@ -79,7 +74,11 @@
 							<Text text="{OMRate}" />
 							<Text text="{MarketRate}" />
 							<Text text="{Total}" />
-							<Button icon="sap-icon://print" press="onPrint" />
+							<HBox>
+								<Button icon="sap-icon://print" press="onPrint" />
+								<Button class="sapUiTinyMarginBegin" icon="sap-icon://delete" press="onRowDelete" />
+							</HBox>
+							
 						</cells>
 					</ColumnListItem>
 				</items>

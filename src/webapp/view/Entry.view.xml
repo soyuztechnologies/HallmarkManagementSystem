@@ -44,15 +44,14 @@
 					<Input id="idMarkRt" value="{local>/newRecords/MarketRate}" change="mrkRtChange"/>
 					<Label text="Total" />
 					<Input value="{local>/newRecords/Total}"/>
+					
 				</f:content>
 			</f:SimpleForm>
-			
+			<Toolbar>
+				<ToolbarSpacer ></ToolbarSpacer>
+				<Button type="Accept" text="{=${local>/newRecords/id}?'Update':'Save'}" width="200px" press="onUpdateForm"/>
+			</Toolbar>
 		</content>
-		<footer>
-			<OverflowToolbar >
-				<ToolbarSpacer/>
-				<Button type="Accept" text="Save" />
-				</OverflowToolbar>
-		</footer>
+		
 	</Page>
 </mvc:View>

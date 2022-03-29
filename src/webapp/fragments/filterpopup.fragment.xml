@@ -1,0 +1,18 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+>
+<Dialog draggable="false" title="Filters" resizable="false">
+    <form:SimpleForm editable="true">
+        <Label text="Date"/>
+        <DateRangeSelection id="datePicker" displayFormat="MM/dd/yyyy" class="sapUiSmallMarginBottom" width="250px"></DateRangeSelection>
+    </form:SimpleForm>
+    <beginButton>
+        <Button press="onFireGo" text="Go" type="Emphasized"></Button>
+    </beginButton>
+    <endButton>
+        <Button press="onCancel" text="Cancel" type="Emphasized"></Button>
+    </endButton>
+</Dialog>
+</c:FragmentDefinition>

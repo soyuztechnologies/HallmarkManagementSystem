@@ -36,9 +36,9 @@
       "required": false
     },
     "Weight": {
-      "type": "number",
+      "type": "string",
       "required": false,
-      "default": 0
+      "default": "0"
     },
     "NWgt": {
       "type": "string",
@@ -52,6 +52,11 @@
     "Address": {
       "type": "string",
       "required": false
+    },
+    "Deleted": {
+      "type": "boolean",
+      "required": false,
+      "default":false
     },
     "City": {
       "type": "string",

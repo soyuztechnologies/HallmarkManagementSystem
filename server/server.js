@@ -55,7 +55,12 @@ app.start = function() {
 				limit: 1
 			}).then(function(oData){
 				debugger;
-				var oRef=parseInt(oData[0].RefNo)+1;
+				if(oData && oData.length){
+					var oRef=parseInt(oData[0].RefNo)+1;
+				}
+				else{
+					var oRef=1;
+				}
 				return res.send(oRef.toString());
 			});
 		})

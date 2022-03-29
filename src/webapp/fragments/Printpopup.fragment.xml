@@ -1,0 +1,19 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+>
+<Dialog draggable="false" title="Print" resizable="false">
+    <form:SimpleForm editable="true" >
+        <Label text="Logo" />
+        <Input value="{local>/printData/Logo}" width="250px"/>
+    </form:SimpleForm>
+    
+    <beginButton>
+        <Button press="onPrintOk" text="Print" type="Emphasized"></Button>
+    </beginButton>
+    <endButton>
+        <Button press="onPrintCancel" text="Cancel" type="Emphasized"></Button>
+    </endButton>
+</Dialog>
+</c:FragmentDefinition>

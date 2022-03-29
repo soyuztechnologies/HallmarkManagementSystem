@@ -23,7 +23,8 @@ sap.ui.define([
 					}
 				},
 				logOut:false,
-				headerVisible:false
+				headerVisible:false,
+				NewEntry:true
 			});
 			this.setModel(oViewModel, "appView");
 			this.oRouter = sap.ui.core.UIComponent.getRouterFor(this);
