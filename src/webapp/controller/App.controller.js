@@ -32,6 +32,7 @@ sap.ui.define([
 			this.oRouter.navTo("View1");
 		},
 		onNewEntry:function(){
+			this.getView().getModel('local').setProperty("/newRecords", undefined);
 			this.oRouter.navTo("Entry");
 		},
 	});

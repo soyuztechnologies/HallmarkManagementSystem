@@ -28,31 +28,34 @@ sap.ui.define([
 				window.top.location.href = "/";
 			}
 			var that = this;
-			$.get('/EntityMax').done(function(data){
-				// debugger;
-				var refNum = data
-				var oSplitData = {
-					"RefNo": refNum ,
-					"Date": new Date(),
-					"Name": "",
-					"MobileNo": "",
-					"Logo": "",
-					"DeliveryBy": "",
-					"Item": "",
-					"Weight": 0,
-					"NWgt": "",
-					"TotalPcs": 0,
-					"Address": "",
-					"City": "",
-					"PinCode": "",
-					"Email": "",
-					"ContactPerson": "",
-					"OMRate": 0,
-					"MarketRate": 0,
-					"Total": 0,
-				};
-				that.getView().getModel('local').setProperty("/newRecords", oSplitData);
-			});
+			if(!this.getView().getModel('local').getProperty("/newRecords")){
+				$.get('/EntityMax').done(function(data){
+					// debugger;
+					var refNum = data
+					var oSplitData = {
+						"RefNo": refNum ,
+						"Date": new Date(),
+						"Name": "",
+						"MobileNo": "",
+						"Logo": "",
+						"DeliveryBy": "",
+						"Item": "",
+						"Weight": 0,
+						"NWgt": "",
+						"TotalPcs": 0,
+						"Address": "",
+						"City": "",
+						"PinCode": "",
+						"Email": "",
+						"ContactPerson": "",
+						"OMRate": 0,
+						"MarketRate": 0,
+						"Total": 0,
+					};
+					that.getView().getModel('local').setProperty("/newRecords", oSplitData);
+				});
+			}
+			
 		},
 		onMobNuChange:function(oEvent){
 			// debugger;
@@ -61,27 +64,38 @@ sap.ui.define([
 				MessageToast.show('Mobile number must have 10 digits')
 			}
 		},
+		onTotalChange:function(oEvent){
+			debugger;
+			var marketRate = oEvent.getParameter('value');
+			this.getView().getModel('local').setProperty("/newRecords/TotalPcs",marketRate);
+			this.totalCalCulater();
+		},
 		omRateChange:function(oEvent){
 			debugger;
-			var marketRate = parseInt(this.getView().byId('idMarkRt').getProperty('value'));
-			if(marketRate !== 0 ){
-				omRate = 0 ;
-			}
-			else{
-				var omRate = oEvent.getSource().getProperty('value');
-			}
-			this.getView().getModel('local').setProperty("/newRecords/OMRate", omRate)
+			var marketRate = oEvent.getParameter('value');
+			this.getView().getModel('local').setProperty("/newRecords/OMRate", marketRate);
+			this.getView().getModel('local').setProperty("/newRecords/MarketRate", 0);
+			this.totalCalCulater();
 		},
 		mrkRtChange : function(oEvent){
 			debugger;
-			var omRt = parseInt(this.getView().byId('idOmRt').getProperty('value'));
-			
-			if(omRt == 0){
-				var mrkrate = oEvent.getSource().getProperty('value');
-			}else{
-				var mrkrate = 0;
+			var marketRate = oEvent.getParameter('value');
+			this.getView().getModel('local').setProperty("/newRecords/OMRate", 0)
+			this.getView().getModel('local').setProperty("/newRecords/MarketRate", marketRate);
+			this.totalCalCulater();
+		},
+		totalCalCulater:function(){
+			var totalPcs=parseInt(this.getView().getModel('local').getProperty("/newRecords/TotalPcs"));
+			var OMRate=parseInt(this.getView().getModel('local').getProperty("/newRecords/OMRate"));
+			var marketRate=parseInt(this.getView().getModel('local').getProperty("/newRecords/MarketRate"));
+			var total=0;
+			if(marketRate>0){
+				total=totalPcs*marketRate;
 			}
-			this.getView().getModel('local').setProperty("/newRecords/MarketRate", mrkrate);
+			else if(OMRate>0){
+				total=totalPcs*OMRate;
+			}
+			this.getView().getModel('local').setProperty("/newRecords/Total", total);
 		}
 	});
 
