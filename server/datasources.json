@@ -9,10 +9,16 @@
     "connector": "memory",
     "file": "storage/data_dbprod.json"
   },
-  "mongoatlas": {
+  "mongoatlasx": {
     "url":"mongodb+srv://anubhav:anubhav@cluster0.gcyil.mongodb.net/HHC?retryWrites=true&w=majority&ssl=true&useUnifiedTopology=true",
     "database": "HHC",
     "name": "mongoatlas",
     "connector": "mongodb"
-  }
+  },
+  "mongoatlas": {
+    "url":"mongodb://Anubhav:N7diL5YsCJnW6fSe@cluster0-shard-00-00.glkqz.mongodb.net:27017,cluster0-shard-00-01.glkqz.mongodb.net:27017,cluster0-shard-00-02.glkqz.mongodb.net:27017/hhcprod?ssl=true&replicaSet=atlas-2dxl1d-shard-0&authSource=admin&retryWrites=true&w=majority",
+    "database": "hhcprod",
+    "name": "mongoatlas",
+    "connector": "mongodb"
+    }
 }
