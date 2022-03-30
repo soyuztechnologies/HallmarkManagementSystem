@@ -132,6 +132,16 @@ sap.ui.define([
 		},
 		onPrintOk : function(){
 			var oData=this.getView().getModel('local').getProperty('/printData');
+			// var form=`<p><strong>Ref No.&nbsp; &nbsp; &nbsp; &nbsp; : ${oData.RefNo}</strong></p>
+			// <p><strong>Date&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : ${oData.Date}</strong></p>
+			// <p><strong>Name&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : ${oData.Name}</strong></p>
+			// <p><strong>Mobile&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: ${oData.MobileNo}</strong></p>
+			// <p><strong>Logo&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : ${oData.Logo}</strong></p>
+			// <p><strong>Delivery By : ${oData.DeliveryBy}</strong></p>
+			// <p><strong>Item&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : ${oData.Item}</strong></p>
+			// <p><strong>Weight&nbsp; &nbsp; &nbsp; &nbsp; : ${oData.Weight}</strong></p>
+			// <p><strong>Wgt&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: ${oData.NWgt}</strong></p>
+			// <p><strong>Total Pcs&nbsp; &nbsp; &nbsp;: ${oData.TotalPcs}</strong></p>`;
 			var form=`<!DOCTYPE html>
 			<html lang="en">
 			<head>
@@ -189,7 +199,7 @@ sap.ui.define([
 			#tj_1{left:110px;bottom:843px;letter-spacing:-0.06px;word-spacing:-0.16px;}
 			#tk_1{left:220px;bottom:843px;letter-spacing:-0.08px;}
 			
-			.s1{font-size:17px;font-family:Carlito_5;color:#000;}
+			.s1{font-size:17px;font-family:Carlito_5;font-weight:bold;color:#000;}
 			</style>
 			<!-- End inline CSS -->
 			
