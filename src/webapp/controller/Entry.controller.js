@@ -25,6 +25,7 @@ sap.ui.define([
 			// debugger;
 			this.getView().getModel("appView").setProperty("/headerVisible", true)
 			this.getView().getModel("appView").setProperty("/NewEntry", false)
+			this.getView().getModel('local').setProperty("/Visible", false);
 			if (!this.getView().getModel("local").getProperty("/CurrentUser")) {
 				window.top.location.href = "/";
 			}
@@ -140,6 +141,15 @@ sap.ui.define([
 				
 			});
 			
+		},
+		onSelectCheckBox: function (oEvent){
+			debugger;
+               var getSelected = oEvent.getSource().getSelected();
+			   if(getSelected == true){
+				this.getView().getModel('local').setProperty("/Visible", true);
+			   }else{
+				this.getView().getModel('local').setProperty("/Visible", false);
+			   }
 		}
 	});
 

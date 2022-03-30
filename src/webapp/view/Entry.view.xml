@@ -5,6 +5,7 @@
 		<headerContent>
 		</headerContent>
 		<content>
+			<CheckBox text="Party" select="onSelectCheckBox"></CheckBox>
 			<f:SimpleForm id="SimpleFormDisplay480_12120"  layout="ColumnLayout" editable="true" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true">
 				<f:content>
 					<!-- <core:Title text="" level="H1" /> -->
@@ -15,11 +16,11 @@
 					<Label text="Name" />
 					<Input required="true" value="{local>/newRecords/Name}"/>
 					<Label text="Mobile No." />
-					<Input value="{local>/newRecords/MobileNo}" change="onMobNuChange"/>
+					<Input value="{local>/newRecords/MobileNo}" change="onMobNuChange" visible="{local>/Visible}"/>
 					<Label text="Logo" />
-					<Input value="{local>/newRecords/Logo}"/>
+					<Input value="{local>/newRecords/Logo}" required="true"/>
 					<Label text="Deliver BY" />
-					<Input value="{local>/newRecords/DeliveryBy}"/>
+					<Input value="{local>/newRecords/DeliveryBy}" visible="{local>/Visible}"/>
 					<Label text="Item" />
 					<Input required="true" value="{local>/newRecords/Item}"/>
 					<Label text="Weight" />
@@ -29,19 +30,19 @@
 					<Label text="Total Pieces" />
 					<Input required="true" value="{local>/newRecords/TotalPcs}" change="onTotalChange"/>
 					<Label text="Address" />
-					<Input value="{local>/newRecords/Address}"/>
+					<Input value="{local>/newRecords/Address}" visible="{local>/Visible}"/>
 					<Label text="City" />
-					<Input value="{local>/newRecords/City}"/>
+					<Input value="{local>/newRecords/City}" visible="{local>/Visible}"/>
 					<Label text="Pin Code" />
-					<Input value="{local>/newRecords/PinCode}"/>
+					<Input value="{local>/newRecords/PinCode}" visible="{local>/Visible}"/>
 					<Label text="Email Address" />
-					<Input value="{local>/newRecords/Email}"/>
+					<Input value="{local>/newRecords/Email}" visible="{local>/Visible}"/>
 					<Label text="Contact Person" />
-					<Input value="{local>/newRecords/ContactPerson}"/>
-					<Label text="OM Rate" />
-					<Input id="idOmRt" value="{local>/newRecords/OMRate}" change="omRateChange"/>
-					<Label text="Market Rate" />
-					<Input id="idMarkRt" value="{local>/newRecords/MarketRate}" change="mrkRtChange"/>
+					<Input value="{local>/newRecords/ContactPerson}" visible="{local>/Visible}"/>
+					<Label text="HM Rate" />
+					<Input id="idOmRt" value="{local>/newRecords/OMRate}" change="omRateChange" required="true"/>
+					<Label text="Testing Rate" />
+					<Input id="idMarkRt" value="{local>/newRecords/MarketRate}" change="mrkRtChange" required="true"/>
 					<Label text="Total" />
 					<Input value="{local>/newRecords/Total}"/>
 					
