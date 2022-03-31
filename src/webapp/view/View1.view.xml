@@ -1,5 +1,6 @@
 <mvc:View xmlns:core="sap.ui.core" 
           xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" 
+		  xmlns:coreCon="sap.ui.core.Control"
 		  xmlns:f="sap.ui.layout.form" 
 		  controllerName="victoria.controller.View1"
 		  xmlns:html="http://www.w3.org/1999/xhtml">
@@ -10,8 +11,9 @@
 			sorter: {
 				path: 'Date'
 			}
-		}" footerText="Total : {local>/TotalRowCount}" mode="SingleSelectMaster" updateFinished="onEntryUpdate" selectionChange="onItemPress">
+		}"  mode="SingleSelectMaster" updateFinished="onEntryUpdate" selectionChange="onItemPress">
 		<headerToolbar>
+			<!-- footerText="Total : {local>/TotalRowCount}" -->
 			<Toolbar>
 				<Title id="_IDGenTitle1" text="Entries"></Title>
 				<ToolbarSpacer/>
@@ -21,6 +23,7 @@
 				<columns>
 					<Column>
 						<Text text="Ref No." />
+						
 					</Column>
 					<Column minScreenWidth="Tablet" demandPopin="true">
 						<Text text="Name" />
@@ -51,6 +54,9 @@
 					</Column>
 					<Column>
 						<Text text="Total" />
+						<footer>
+							<Text text="{local>/TotalRowCount}" textAlign="Center" 	/>
+						</footer>
 					</Column>
 					<Column>
 						<Text text="Tools" />
@@ -71,6 +77,7 @@
 							<Text text="{DeliveryBy}" />
 							<Text text="{TotalPcs}" />
 							<Text text="{Logo}" />
+							<!-- <ObjectIdentifier title="{Logo}" /> -->
 							<Text text="{OMRate}" />
 							<Text text="{MarketRate}" />
 							<Text text="{Total}" />
