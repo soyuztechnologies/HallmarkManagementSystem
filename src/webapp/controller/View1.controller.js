@@ -35,6 +35,10 @@ sap.ui.define([
 			todaysDate1.setHours(0, 0, 0, 0)
 			var todaysDate2 = new Date()
 			todaysDate2.setHours(23, 59, 59, 59)
+			console.log(todaysDate1);
+			console.log(todaysDate2);
+			todaysDate1=this.ODataHelper.onTimeZone(todaysDate1);
+			todaysDate2=this.ODataHelper.onTimeZone(todaysDate2);
 			var oFilterTodayDate = new Filter("Date", FilterOperator.BT, todaysDate1 , todaysDate2);
 			var oDeleted = new Filter("Deleted", FilterOperator.EQ, false);
 			var oList = this.getView().byId('idEntryTable');
@@ -73,8 +77,8 @@ sap.ui.define([
             var sQuery5 = this.getView().byId('datePicker').getFrom();
             var sQuery6 = this.getView().byId('datePicker').getTo();
             if (sQuery5 && sQuery6) {
-                var oDate1 = new Date(sQuery5);
-                var oDate2 = new Date(sQuery6);
+                var oDate1 = this.ODataHelper.onTimeZone(sQuery5);
+                var oDate2 = this.ODataHelper.onTimeZone(sQuery6);
                 var oFilter5 = new Filter("Date", FilterOperator.BT, oDate1, oDate2);
                 aFilter.push(oFilter5);
             }
