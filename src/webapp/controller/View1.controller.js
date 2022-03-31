@@ -136,6 +136,13 @@ sap.ui.define([
 		},
 		onPrintOk : function(){
 			var oData=this.getView().getModel('local').getProperty('/printData');
+			var d = oData.Date,
+			dformat = [d.getDate(),d.getMonth()+1,
+					d.getFullYear()].join('/')+' '+
+					[d.getHours(),
+					d.getMinutes()].join(':');
+					
+					// d.getSeconds()
 			// var form=`<p><strong>Ref No.&nbsp; &nbsp; &nbsp; &nbsp; : ${oData.RefNo}</strong></p>
 			// <p><strong>Date&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : ${oData.Date}</strong></p>
 			// <p><strong>Name&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : ${oData.Name}</strong></p>
@@ -203,7 +210,7 @@ sap.ui.define([
 			#tj_1{left:110px;bottom:843px;letter-spacing:-0.06px;word-spacing:-0.16px;}
 			#tk_1{left:220px;bottom:843px;letter-spacing:-0.08px;}
 			
-			.s1{font-size:17px;font-family:Carlito_5;font-weight:bold;color:#000;}
+			.s1{font-size:17px;font-family:sans-serif;font-weight:bold;color:#000;}
 			</style>
 			<!-- End inline CSS -->
 			
@@ -226,7 +233,7 @@ sap.ui.define([
 			
 			<!-- Begin text definitions (Positioned/styled in CSS) -->
 			<div class="text-container"><span id="t1_1" class="t s1">Ref No. </span><span id="t2_1" class="t s1">: ${oData.RefNo} </span>
-			<span id="t3_1" class="t s1">Date </span><span id="t4_1" class="t s1">: ${oData.Date} </span>
+			<span id="t3_1" class="t s1">Date </span><span id="t4_1" class="t s1">: ${dformat} </span>
 			<span id="t5_1" class="t s1">Name </span><span id="t6_1" class="t s1">: ${oData.Name} </span>
 			<span id="t7_1" class="t s1">Mobile </span><span id="t8_1" class="t s1">: ${oData.MobileNo} </span>
 			<span id="t9_1" class="t s1">Logo </span><span id="ta_1" class="t s1">: ${oData.Logo} </span>
