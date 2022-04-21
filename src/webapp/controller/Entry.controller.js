@@ -1,8 +1,10 @@
 sap.ui.define([
 	"victoria/controller/BaseController",
 	"victoria/models/models",
-	'sap/m/MessageToast'
-], function (Controller, Models, MessageToast) {
+	'sap/m/MessageToast',
+	"sap/ui/model/Filter",
+    'sap/ui/model/FilterOperator'
+], function (Controller, Models, MessageToast,Filter,FilterOperator) {
 	"use strict";
 
 	return Controller.extend("victoria.controller.View1", {
@@ -25,7 +27,7 @@ sap.ui.define([
 			// debugger;
 			this.getView().getModel("appView").setProperty("/headerVisible", true)
 			this.getView().getModel("appView").setProperty("/NewEntry", false)
-			this.getView().getModel('local').setProperty("/Visible", false);
+			// this.getView().getModel('local').setProperty("/Visible", false);	
 			if (!this.getView().getModel("local").getProperty("/CurrentUser")) {
 				window.top.location.href = "/";
 			}
@@ -67,20 +69,20 @@ sap.ui.define([
 			}
 		},
 		onTotalChange: function (oEvent) {
-			debugger;
+			// debugger;
 			var marketRate = oEvent.getParameter('value');
 			this.getView().getModel('local').setProperty("/newRecords/TotalPcs", marketRate);
 			this.totalCalCulater();
 		},
 		omRateChange: function (oEvent) {
-			debugger;
+			// debugger;
 			var marketRate = oEvent.getParameter('value');
 			this.getView().getModel('local').setProperty("/newRecords/OMRate", marketRate);
 			this.getView().getModel('local').setProperty("/newRecords/MarketRate", 0);
 			this.totalCalCulater();
 		},
 		mrkRtChange: function (oEvent) {
-			debugger;
+			// debugger;
 			var marketRate = oEvent.getParameter('value');
 			this.getView().getModel('local').setProperty("/newRecords/OMRate", 0)
 			this.getView().getModel('local').setProperty("/newRecords/MarketRate", marketRate);
@@ -100,7 +102,7 @@ sap.ui.define([
 			this.getView().getModel('local').setProperty("/newRecords/Total", total);
 		},
 		onUpdateForm: function () {
-			debugger;
+			// debugger;
 			var oData = this.getView().getModel('local').getProperty('/newRecords');
 			// $.post('/api/Entrys',oData).done(function(){
 			// 	debugger;
@@ -112,7 +114,13 @@ sap.ui.define([
 			if(oData.id){
 				method = "PATCH"
 				delete oData.__metadata;
+				oData.ChangedOn = new Date();
+				oData.ChangedBy = 	this.getView().getModel("local").getProperty("/CurrentUser");
 
+			}
+			else{
+				oData.CreatedOn = new Date();
+				oData.CreatedBy = 	this.getView().getModel("local").getProperty("/CurrentUser");
 			}
 			$.ajax("/api/Entrys?access_token="+token, {
 				type: method,
@@ -123,7 +131,7 @@ sap.ui.define([
 				},
 				data: JSON.stringify(oData),
 				success: function (data, status, xhr) {
-					debugger;
+					// debugger;
 					if(method==="POST"){
 						sap.m.MessageToast.show("Data Added Successfully");
 					}
@@ -136,20 +144,77 @@ sap.ui.define([
 					oTable.refresh();
 				},
 				error: function (jqXhr, textStatus, errorMessage) {
-					debugger;
+					// debugger;
 				}
 				
 			});
 			
 		},
 		onSelectCheckBox: function (oEvent){
-			debugger;
+			// debugger;
                var getSelected = oEvent.getSource().getSelected();
 			   if(getSelected == true){
 				this.getView().getModel('local').setProperty("/Visible", true);
 			   }else{
 				this.getView().getModel('local').setProperty("/Visible", false);
 			   }
+		},
+		handleValueHelp: function(){
+			this.getView().getModel().refresh()
+            this.getNameDailog().open();
+		},
+		getNameDailog : function(){
+			if (!this.oNameDialog) {
+                this.oNameDialog = sap.ui.xmlfragment(this.getView().getId(),"victoria.Fragments.Namepopup" ,this);
+                this.getView().addDependent(this.oNameDialog);
+            }
+            return this.oNameDialog;
+		},
+		onCancelNamepopup: function (){
+			this.getNameDailog().close();
+		},
+		onOkNamepopup: function (oEvent){
+			debugger;
+            //  var oName = oEvent.getSource().getProperty('title');
+		    //  this.getView().getModel('local').setProperty("/newRecords/Name", oName);
+			 var oObject = oEvent.getSource().getBindingContext().getObject();
+			 var Records = this.getView().getModel('local').getProperty("/newRecords");
+			 Records.Logo = oObject.Logo;
+			 Records.Name = oObject.Name;
+			 Records.OMRate = oObject.OMRate;
+			 Records.MarketRate = oObject.MarketRate;
+			 this.getView().getModel('local').setProperty("/newRecords",Records);
+			//  if(oObject.Party == true){
+			// 	this.getView().getModel('local').setProperty("/Visible", true);
+			//  }
+			 this.getNameDailog().close();
+		},
+		onSearch:function (oEvent){
+			// debugger;
+			var aFilters = [];
+            var sQuery = oEvent.getSource().getValue();
+            if (sQuery && sQuery.length > 0) {
+                var oFilter1 = new Filter("Name", FilterOperator.Contains, sQuery);
+				var oFilter2 = new Filter("Party", FilterOperator.EQ, true);
+				var oFilter3 = new Filter("Deleted", FilterOperator.EQ, false);
+                aFilters.push(oFilter1);
+				aFilters.push(oFilter2);
+				aFilters.push(oFilter3);
+            }
+
+            var oList = this.getView().byId("idList");
+            var oBinding = oList.getBinding("items");
+            oBinding.filter(aFilters);
+		},
+		onItemSelected: function (oEvent){
+			// debugger;
+			var oObject = oEvent.getParameters().selectedItem.getBindingContext().getObject();
+			 var Records = this.getView().getModel('local').getProperty("/newRecords");
+			 Records.Logo = oObject.Logo;
+			 Records.Name = oObject.Name;
+			 Records.OMRate = oObject.OMRate;
+			 Records.MarketRate = oObject.MarketRate;
+			 this.getView().getModel('local').setProperty("/newRecords",Records);
 		}
 	});
 

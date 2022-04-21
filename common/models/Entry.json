@@ -58,6 +58,11 @@
       "required": false,
       "default":false
     },
+    "Party": {
+      "type": "boolean",
+      "required": false,
+      "default":false
+    },
     "City": {
       "type": "string",
       "required": false

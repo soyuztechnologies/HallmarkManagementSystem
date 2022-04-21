@@ -30,19 +30,20 @@ sap.ui.define([
 			if(!this.getView().getModel("local").getProperty("/CurrentUser")){
 				window.top.location.href = "/";
 			}
-			debugger;
+			// debugger;
             var todaysDate1 = new Date()
 			todaysDate1.setHours(0, 0, 0, 0)
 			var todaysDate2 = new Date()
 			todaysDate2.setHours(23, 59, 59, 59)
-			console.log(todaysDate1);
-			console.log(todaysDate2);
+			// console.log(todaysDate1);
+			// console.log(todaysDate2);
 			todaysDate1=this.ODataHelper.onTimeZone(todaysDate1);
 			todaysDate2=this.ODataHelper.onTimeZone(todaysDate2);
 			var oFilterTodayDate = new Filter("Date", FilterOperator.BT, todaysDate1 , todaysDate2);
 			var oDeleted = new Filter("Deleted", FilterOperator.EQ, false);
 			var oList = this.getView().byId('idEntryTable');
             oList.getBinding('items').filter([oFilterTodayDate,oDeleted]);
+			this.getView().getModel('local').setProperty("/Visible", false);
 		},
 		onEntryUpdate:function(oEvent){
 			// debugger;
@@ -88,14 +89,14 @@ sap.ui.define([
 		},
 		
 		onPrint:function(oEvent){
-			debugger;
+			// debugger;
 			var oRowData = oEvent.getSource().getParent().getBindingContext().getObject();
 			this.getView().getModel('local').setProperty('/printData', oRowData);
 			this.getPrintDailog().open();
 		// 	
 		},
 		onRowDelete:function(oEvent){
-			debugger;
+			// debugger;
 			var oRowData = oEvent.getSource().getParent().getBindingContext().getObject();
 			oRowData.Deleted=true;
 			var that = this;
@@ -109,7 +110,7 @@ sap.ui.define([
 				},
 				data: JSON.stringify(oRowData),
 				success: function (data, status, xhr) {
-					debugger;
+					// debugger;
 				
 						sap.m.MessageToast.show("Deleted Successfully");
 					
@@ -118,7 +119,7 @@ sap.ui.define([
 					oTable.refresh();
 				},
 				error: function (jqXhr, textStatus, errorMessage) {
-					debugger;
+					// debugger;
 				}
 				
 			});
@@ -270,10 +271,17 @@ sap.ui.define([
 		},
 		onItemPress:function(oEvent){
 			// debugger;
+			// this.getView().getModel('local').setProperty("/newRecords", oData);
 			var oData=oEvent.getParameter('listItem').getBindingContext().getObject();
 			this.getView().getModel('local').setProperty("/newRecords", oData);
+			if(oData.Party === true){
+				this.getView().getModel('local').setProperty("/Visible", true);
+			   }else{
+				this.getView().getModel('local').setProperty("/Visible", false);
+			   }
 			// debugger;
 			this.oRouter.navTo("Entry");
+
 		},
 	
 
