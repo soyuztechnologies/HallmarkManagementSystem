@@ -24,7 +24,7 @@
 					<Label text="Logo" />
 					<Input value="{local>/newRecords/Logo}" required="true"/>
 					<Label text="Deliver BY" />
-					<Input value="{local>/newRecords/DeliveryBy}" visible="{local>/Visible}"/>
+					<Input value="{local>/newRecords/DeliveryBy}" visible="true"/>
 					<Label text="Item" />
 					<Input required="true" value="{local>/newRecords/Item}"/>
 					<Label text="Weight" />
