@@ -11,7 +11,7 @@
 			sorter: {
 				path: 'Date'
 			}
-		}"  mode="SingleSelectMaster" updateFinished="onEntryUpdate" selectionChange="onItemPress">
+		}"  mode="SingleSelectMaster" growing="true" growingThreshold="100" growingScrollToLoad="true" updateFinished="onEntryUpdate" selectionChange="onItemPress">
 		<headerToolbar>
 			<!-- footerText="Total : {local>/TotalRowCount}" -->
 			<Toolbar>
