@@ -62,7 +62,7 @@ sap.ui.define([
 		},
 		getDialog: function () {
             if (!this.oLocDialog) {
-                this.oLocDialog = sap.ui.xmlfragment(this.getView().getId(),"victoria.Fragments.filterpopup" ,this);
+                this.oLocDialog = sap.ui.xmlfragment(this.getView().getId(),"victoria.fragments.filterpopup" ,this);
                 this.getView().addDependent(this.oLocDialog);
             }
             return this.oLocDialog;
