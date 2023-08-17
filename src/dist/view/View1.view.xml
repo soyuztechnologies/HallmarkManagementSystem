@@ -1,0 +1,98 @@
+<mvc:View xmlns:core="sap.ui.core" 
+          xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" 
+		  xmlns:coreCon="sap.ui.core.Control"
+		  xmlns:f="sap.ui.layout.form" 
+		  controllerName="victoria.controller.View1"
+		  xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page>
+		<content>
+			<Table id="idEntryTable" inset="false" items="{
+			path: '/Entrys',
+			sorter: {
+				path: 'Date'
+			}
+		}"  mode="SingleSelectMaster" growing="true" growingThreshold="100" growingScrollToLoad="true" updateFinished="onEntryUpdate" selectionChange="onItemPress">
+		<headerToolbar>
+			<!-- footerText="Total : {local>/TotalRowCount}" -->
+			<Toolbar>
+				<Title id="_IDGenTitle1" text="Entries"></Title>
+				<ToolbarSpacer/>
+				<Button icon="sap-icon://filter" press="openFilterPopup" ></Button>
+			</Toolbar>
+		</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="Ref No." />
+						
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Name" />
+					</Column>
+					<Column minScreenWidth="Tablet" demandPopin="true">
+						<Text text="Date" />
+					</Column>
+					<Column minScreenWidth="Desktop" demandPopin="true">
+						<Text text="Item" />
+					</Column>
+					<Column minScreenWidth="Desktop" demandPopin="true" hAlign="Center">
+						<Text text="Weight" />
+					</Column>
+					<Column>
+						<Text text="DeliveryBy" />
+					</Column>
+					<Column>
+						<Text text="Pieces" />
+					</Column>
+					<Column>
+						<Text text="Logo" />
+					</Column>
+					<Column>
+						<Text text="HM Rate" />
+					</Column>
+					<Column>
+						<Text text="Market Rate" />
+					</Column>
+					<Column>
+						<Text text="Total" />
+						<footer>
+							<Text text="{local>/TotalRowCount}" textAlign="Center" 	/>
+						</footer>
+					</Column>
+					<Column>
+						<Text text="Tools" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem vAlign="Middle">
+						<cells>
+							<ObjectIdentifier title="{RefNo}" />
+							<Text text="{Name}" />
+							<Text text="{
+								path: 'Date',
+								type: 'sap.ui.model.type.Date',
+								formatOptions: { style: 'medium' }
+							}" />
+							<Text text="{Item}" />
+							<Text text="{Weight}" />
+							<Text text="{DeliveryBy}" />
+							<Text text="{TotalPcs}" />
+							<Text text="{Logo}" />
+							<!-- <ObjectIdentifier title="{Logo}" /> -->
+							<Text text="{OMRate}" />
+							<Text text="{MarketRate}" />
+							<Text text="{Total}" />
+							<HBox>
+								<Button icon="sap-icon://print" press="onPrint" />
+								<Button class="sapUiTinyMarginBegin" icon="sap-icon://delete" press="onRowDelete" />
+							</HBox>
+							
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+		<footer>
+			<Toolbar></Toolbar>
+		</footer>
+	</Page>
+</mvc:View>

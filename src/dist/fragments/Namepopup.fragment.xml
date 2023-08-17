@@ -1,0 +1,23 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+<Dialog draggable="false" title="Names" resizable="false">
+	<customHeader>
+		<Toolbar>
+			<SearchField liveChange="onSearch" width="100%" />
+		</Toolbar>
+	</customHeader>
+    <List id="idList"
+		items="{
+			path: '/Entrys',
+            filters: [{ path: 'Deleted', operator: 'EQ', value1: false},{ path: 'Party', operator: 'EQ', value1: true}]
+		}" >
+		<StandardListItem
+			title="{Name}" type="Active" press="onOkNamepopup"/>
+	</List>
+    <endButton>
+        <Button press="onCancelNamepopup" text="Close" type="Emphasized"></Button>
+    </endButton>
+</Dialog>
+</c:FragmentDefinition>

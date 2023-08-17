@@ -1,0 +1,62 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:f="sap.ui.layout.form"
+	controllerName="victoria.controller.Entry"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page  title="New Registration" showHeader="true" enableScrolling="false">
+		<headerContent>
+		</headerContent>
+		<content>
+			<CheckBox id="idSelected" text="Party" select="onSelectCheckBox" selected="{local>/newRecords/Party}"></CheckBox>
+			<f:SimpleForm id="SimpleFormDisplay480_12120"  layout="ColumnLayout" editable="true" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="true">
+				<f:content>
+					<!-- <core:Title text="" level="H1" /> -->
+					<Label text="Refrence No." />
+					<Input id="idRef" value="{local>/newRecords/RefNo}" editable="false" required="true"/>
+					<Label text="Date" />
+					<DatePicker dateValue="{local>/newRecords/Date}" required="true" displayFormat="MM/dd/yyyy"></DatePicker>
+					<Label text="Name" />
+					<Input id="productInput" required="true" value="{local>/newRecords/Name}" valueHelpRequest="handleValueHelp" showValueHelp="{=${local>/newRecords/id}?false:true}"  showSuggestion="{=${local>/newRecords/id}?false:true}" suggestionItems="{path : '/Entrys' , filters:[{ path: 'Deleted', operator: 'EQ', value1: false},{ path: 'Party', operator: 'EQ', value1: true}]}" suggestionItemSelected="onItemSelected">
+						<suggestionItems>
+							<core:Item text="{Name}" />
+						</suggestionItems>
+					</Input>
+					<Label text="Mobile No." />
+					<Input value="{local>/newRecords/MobileNo}" change="onMobNuChange" visible="{local>/Visible}"/>
+					<Label text="Logo" />
+					<Input value="{local>/newRecords/Logo}" required="true"/>
+					<Label text="Deliver BY" />
+					<Input value="{local>/newRecords/DeliveryBy}" visible="true"/>
+					<Label text="Item" />
+					<Input required="true" value="{local>/newRecords/Item}"/>
+					<Label text="Weight" />
+					<Input required="true" value="{local>/newRecords/Weight}"/>
+					<Label text="Net Weight" />
+					<Input value="{local>/newRecords/NWgt}"/>
+					<Label text="Total Pieces" />
+					<Input required="true" value="{local>/newRecords/TotalPcs}" change="onTotalChange"/>
+					<Label text="Address" />
+					<Input value="{local>/newRecords/Address}" visible="{local>/Visible}"/>
+					<Label text="City" />
+					<Input value="{local>/newRecords/City}" visible="{local>/Visible}"/>
+					<Label text="Pin Code" />
+					<Input value="{local>/newRecords/PinCode}" visible="{local>/Visible}"/>
+					<Label text="Email Address" />
+					<Input value="{local>/newRecords/Email}" visible="{local>/Visible}"/>
+					<Label text="Contact Person" />
+					<Input value="{local>/newRecords/ContactPerson}" visible="{local>/Visible}"/>
+					<Label text="HM Rate" />
+					<Input id="idOmRt" value="{local>/newRecords/OMRate}" change="omRateChange" required="true"/>
+					<Label text="Testing Rate" />
+					<Input id="idMarkRt" value="{local>/newRecords/MarketRate}" change="mrkRtChange" required="true"/>
+					<Label text="Total" />
+					<Input value="{local>/newRecords/Total}"/>
+					
+				</f:content>
+			</f:SimpleForm>
+			<Toolbar>
+				<ToolbarSpacer ></ToolbarSpacer>
+				<Button type="Accept" text="{=${local>/newRecords/id}?'Update':'Save'}" width="200px" press="onUpdateForm"/>
+			</Toolbar>
+		</content>
+		
+	</Page>
+</mvc:View>
