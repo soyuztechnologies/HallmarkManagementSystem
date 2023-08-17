@@ -165,7 +165,7 @@ sap.ui.define([
 		},
 		getNameDailog : function(){
 			if (!this.oNameDialog) {
-                this.oNameDialog = sap.ui.xmlfragment(this.getView().getId(),"victoria.Fragments.Namepopup" ,this);
+                this.oNameDialog = sap.ui.xmlfragment(this.getView().getId(),"victoria.fragments.Namepopup" ,this);
                 this.getView().addDependent(this.oNameDialog);
             }
             return this.oNameDialog;

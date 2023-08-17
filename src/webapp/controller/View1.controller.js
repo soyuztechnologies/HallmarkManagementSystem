@@ -127,7 +127,7 @@ sap.ui.define([
 		},
 		getPrintDailog : function(){
 			if (!this.oPrintDialog) {
-                this.oPrintDialog = sap.ui.xmlfragment(this.getView().getId(),"victoria.Fragments.Printpopup" ,this);
+                this.oPrintDialog = sap.ui.xmlfragment(this.getView().getId(),"victoria.fragments.Printpopup" ,this);
                 this.getView().addDependent(this.oPrintDialog);
             }
             return this.oPrintDialog;
