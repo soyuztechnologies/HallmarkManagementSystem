@@ -163,7 +163,7 @@ sap.ui.define([
 			
 			<body style="margin: 0;">
 			
-			<div id="p1" style="overflow: hidden; position: relative; background-color: white; width: 909px; height: 1286px;">
+			<div id="p1" style="overflow: hidden; position: relative; background-color: white; width: 609px; height: 1186px;">
 			
 			<!-- Begin shared CSS values -->
 			<style class="shared-css" type="text/css" >
@@ -183,6 +183,14 @@ sap.ui.define([
 					white-space: normal;
 				}
 			}
+			@media print {
+				html, body {
+				  height:100%; 
+				  margin: 0 !important; 
+				  padding: 0 !important;
+				  overflow: hidden;
+				} 
+			  }
 			</style>
 			<!-- End shared CSS values -->
 			
@@ -228,7 +236,7 @@ sap.ui.define([
 			
 			<!-- Begin page background -->
 			<div id="pg1Overlay" style="width:100%; height:100%; position:absolute; z-index:1; background-color:rgba(0,0,0,0); -webkit-user-select: none;"></div>
-			<div id="pg1" style="-webkit-user-select: none;"><object width="909" height="1286" data="1/1.svg" type="image/svg+xml" id="pdf1" style="width:909px; height:1286px; -moz-transform:scale(1); z-index: 0;"></object></div>
+			<div id="pg1" style="-webkit-user-select: none;"><object width="909" height="1286" data="1/1.svg" type="image/svg+xml" id="pdf1" style="width:250px; height:300px; -moz-transform:scale(1); z-index: 0;"></object></div>
 			<!-- End page background -->
 			
 			
@@ -252,7 +260,7 @@ sap.ui.define([
 			`;
 		
 		  var random = Math.floor(Math.random() * 10000);
-				var myWindow = window.open("", "PrintWindow" + random, "width=288,height=288");
+				var myWindow = window.open("", "PrintWindow" + random, "width=220,height=288");
 				myWindow.document.write(form);
 				// for (var i = 0; i < arrayRemoveFromPrint.length; i++) {
 				// 	var coll = myWindow.document.getElementsByClassName(arrayRemoveFromPrint[i]);
