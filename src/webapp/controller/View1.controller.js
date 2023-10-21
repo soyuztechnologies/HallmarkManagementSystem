@@ -183,6 +183,11 @@ sap.ui.define([
 					white-space: normal;
 				}
 			}
+			@media print and (width: 90mm) and (height: 220mm) {
+				@page {
+				   margin: 3mm;
+				}
+		   }
 			</style>
 			<!-- End shared CSS values -->
 			
