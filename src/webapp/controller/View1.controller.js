@@ -163,7 +163,7 @@ sap.ui.define([
 			
 			<body style="margin: 0;">
 			
-			<div id="p1" style="overflow: hidden; position: relative; background-color: white; width: 909px; height: 1286px;">
+			<div id="p1" style="overflow: hidden; position: relative; background-color: white; width: 909px; height: 1200px;">
 			
 			<!-- Begin shared CSS values -->
 			<style class="shared-css" type="text/css" >
@@ -183,7 +183,7 @@ sap.ui.define([
 					white-space: normal;
 				}
 			}
-			@media print and (width: 90mm) and (height: 220mm) {
+			@media print and (width: 90mm) and (height: 200mm) {
 				@page {
 				   margin: 3mm;
 				}
