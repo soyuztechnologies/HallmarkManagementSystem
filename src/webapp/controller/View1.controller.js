@@ -173,7 +173,7 @@ sap.ui.define([
 				position: absolute;
 				white-space: pre;
 				overflow: visible;
-				line-height: 1.5;
+				line-height: 1;
 			}
 			.text-container {
 				white-space: pre;
@@ -190,7 +190,7 @@ sap.ui.define([
 			<!-- Begin inline CSS -->
 			<style type="text/css" >
 			
-			#t1_1{left:110px;bottom:1152px;letter-spacing:-0.09px;}
+			<!--#t1_1{left:110px;bottom:1152px;letter-spacing:-0.09px;}
 			#t2_1{left:220px;bottom:1152px;letter-spacing:-0.09px;word-spacing:0.01px;}
 			#t3_1{left:110px;bottom:1118px;letter-spacing:-0.11px;}
 			#t4_1{left:220px;bottom:1118px;letter-spacing:-0.09px;word-spacing:0.01px;}
@@ -209,7 +209,7 @@ sap.ui.define([
 			#th_1{left:110px;bottom:877px;letter-spacing:-0.1px;word-spacing:0.01px;}
 			#ti_1{left:220px;bottom:877px;letter-spacing:-0.1px;word-spacing:0.01px;}
 			#tj_1{left:110px;bottom:843px;letter-spacing:-0.06px;word-spacing:-0.16px;}
-			#tk_1{left:220px;bottom:843px;letter-spacing:-0.08px;}
+			#tk_1{left:220px;bottom:843px;letter-spacing:-0.08px;}-->
 			
 			.s1{font-size:17px;font-family:sans-serif;font-weight:bold;color:#000;}
 			</style>
@@ -252,7 +252,8 @@ sap.ui.define([
 			`;
 		
 		  var random = Math.floor(Math.random() * 10000);
-				var myWindow = window.open("", "PrintWindow" + random, "width=288,height=288");
+				var myWindow = window.open("", "PrintWindow" + random);
+				// var myWindow = window.open("", "PrintWindow" + random, "width=288,height=288");
 				myWindow.document.write(form);
 				// for (var i = 0; i < arrayRemoveFromPrint.length; i++) {
 				// 	var coll = myWindow.document.getElementsByClassName(arrayRemoveFromPrint[i]);
