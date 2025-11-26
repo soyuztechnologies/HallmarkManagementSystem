@@ -163,7 +163,7 @@ sap.ui.define([
 			
 			<body style="margin: 0;">
 			
-			<div id="p1" style="overflow: hidden; position: relative; background-color: white; width: 609px; height: 1186px;">
+			<div id="p1" style="overflow: hidden; position: relative; background-color: white; width: 909px; height: 1200px;">
 			
 			<!-- Begin shared CSS values -->
 			<style class="shared-css" type="text/css" >
@@ -173,7 +173,7 @@ sap.ui.define([
 				position: absolute;
 				white-space: pre;
 				overflow: visible;
-				line-height: 1.5;
+				line-height: 1;
 			}
 			.text-container {
 				white-space: pre;
@@ -183,14 +183,11 @@ sap.ui.define([
 					white-space: normal;
 				}
 			}
-			@media print {
-				html, body {
-				  height:100%; 
-				  margin: 0 !important; 
-				  padding: 0 !important;
-				  overflow: hidden;
-				} 
-			  }
+			@media print and (width: 90mm) and (height: 200mm) {
+				@page {
+				   margin: 3mm;
+				}
+		   }
 			</style>
 			<!-- End shared CSS values -->
 			
@@ -198,7 +195,7 @@ sap.ui.define([
 			<!-- Begin inline CSS -->
 			<style type="text/css" >
 			
-			#t1_1{left:110px;bottom:1152px;letter-spacing:-0.09px;}
+			<!--#t1_1{left:110px;bottom:1152px;letter-spacing:-0.09px;}
 			#t2_1{left:220px;bottom:1152px;letter-spacing:-0.09px;word-spacing:0.01px;}
 			#t3_1{left:110px;bottom:1118px;letter-spacing:-0.11px;}
 			#t4_1{left:220px;bottom:1118px;letter-spacing:-0.09px;word-spacing:0.01px;}
@@ -217,7 +214,7 @@ sap.ui.define([
 			#th_1{left:110px;bottom:877px;letter-spacing:-0.1px;word-spacing:0.01px;}
 			#ti_1{left:220px;bottom:877px;letter-spacing:-0.1px;word-spacing:0.01px;}
 			#tj_1{left:110px;bottom:843px;letter-spacing:-0.06px;word-spacing:-0.16px;}
-			#tk_1{left:220px;bottom:843px;letter-spacing:-0.08px;}
+			#tk_1{left:220px;bottom:843px;letter-spacing:-0.08px;}-->
 			
 			.s1{font-size:17px;font-family:sans-serif;font-weight:bold;color:#000;}
 			</style>
@@ -236,7 +233,7 @@ sap.ui.define([
 			
 			<!-- Begin page background -->
 			<div id="pg1Overlay" style="width:100%; height:100%; position:absolute; z-index:1; background-color:rgba(0,0,0,0); -webkit-user-select: none;"></div>
-			<div id="pg1" style="-webkit-user-select: none;"><object width="909" height="1286" data="1/1.svg" type="image/svg+xml" id="pdf1" style="width:250px; height:300px; -moz-transform:scale(1); z-index: 0;"></object></div>
+			<div id="pg1" style="-webkit-user-select: none;"><object width="909" height="1286" data="1/1.svg" type="image/svg+xml" id="pdf1" style="width:909px; height:1286px; -moz-transform:scale(1); z-index: 0;"></object></div>
 			<!-- End page background -->
 			
 			
@@ -260,7 +257,8 @@ sap.ui.define([
 			`;
 		
 		  var random = Math.floor(Math.random() * 10000);
-				var myWindow = window.open("", "PrintWindow" + random, "width=220,height=288");
+				var myWindow = window.open("", "PrintWindow" + random);
+				// var myWindow = window.open("", "PrintWindow" + random, "width=288,height=288");
 				myWindow.document.write(form);
 				// for (var i = 0; i < arrayRemoveFromPrint.length; i++) {
 				// 	var coll = myWindow.document.getElementsByClassName(arrayRemoveFromPrint[i]);

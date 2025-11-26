@@ -1,1 +1,2 @@
 sap.ui.define(["sap/ui/core/UIComponent","victoria/models/models","sap/ui/model/json/JSONModel","sap/ui/core/routing/HashChanger"],function(i,o,t,e){return i.extend("victoria.Component",{metadata:{manifest:"json"},init:function(){sap.ui.core.UIComponent.prototype.init.apply(this);var i=this.getRouter();i.initialize()},destroy:function(){}})});
+//# sourceMappingURL=Component.js.map
